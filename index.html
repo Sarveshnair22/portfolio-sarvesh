@@ -133,69 +133,77 @@
   </section>
 
   <!-- Certifications -->
-  <section class="section section--tight" id="certifications">
-    <div class="wrap">
-      <div class="section-head" style="margin-inline:auto; text-align:center;">
-        <div class="rule" style="margin-inline:auto;"></div>
-        <h2>Certifications</h2>
-        <p style="margin-inline:auto;">A few of the courses and credentials I've completed along the way.</p>
-      </div>
-
-      <div class="carousel" data-carousel>
-        <div class="carousel-viewport">
-          <div class="carousel-track">
-
-            <article class="cert-card">
-              <span class="cert-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5 7.5 21 12 18.5 16.5 21 15 13.5"/></svg>
-              </span>
-              <h3 class="cert-name">AWS Cloud Practitioner (CLF-02)</h3>
-              <p class="cert-issuer">Udemy</p>
-            </article>
-
-            <article class="cert-card">
-              <span class="cert-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5 7.5 21 12 18.5 16.5 21 15 13.5"/></svg>
-              </span>
-              <h3 class="cert-name">Machine Learning Internship</h3>
-              <p class="cert-issuer">Certification</p>
-            </article>
-
-            <article class="cert-card">
-              <span class="cert-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5 7.5 21 12 18.5 16.5 21 15 13.5"/></svg>
-              </span>
-              <h3 class="cert-name">Data Science Certification Course</h3>
-            </article>
-
-            <article class="cert-card">
-              <span class="cert-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5 7.5 21 12 18.5 16.5 21 15 13.5"/></svg>
-              </span>
-              <h3 class="cert-name">Programming with Python Course</h3>
-            </article>
-
-            <article class="cert-card">
-              <span class="cert-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5 7.5 21 12 18.5 16.5 21 15 13.5"/></svg>
-              </span>
-              <h3 class="cert-name">Virtual Cloud Computing</h3>
-            </article>
-
-          </div>
-        </div>
-        <div class="carousel-controls">
-          <button class="carousel-btn" type="button" data-dir="prev" aria-label="Previous certification">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
-          </button>
-          <div class="carousel-dots" role="tablist" aria-label="Certification slides"></div>
-          <button class="carousel-btn" type="button" data-dir="next" aria-label="Next certification">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-          </button>
-        </div>
-      </div>
+<section class="section section--tight" id="certifications">
+  <div class="wrap">
+    <div class="section-head" style="margin-inline:auto; text-align:center;">
+      <div class="rule" style="margin-inline:auto;"></div>
+      <h2>Certifications</h2>
+      <p style="margin-inline:auto;">A few of the courses and credentials I've completed along the way.</p>
     </div>
-  </section>
+
+    <div class="carousel" data-carousel>
+
+      <div class="carousel-viewport">
+
+        <div class="carousel-track">
+          <!-- Certificate cards will be added automatically by JavaScript -->
+        </div>
+
+        <div class="certificate-controls">
+          <button id="prevCert" aria-label="Previous certificate">←</button>
+          <div class="dots" id="certificateDots"></div>
+        </div>
+
+      </div>
+
+      <div class="carousel-controls">
+
+        <button class="carousel-btn"
+                type="button"
+                data-dir="prev"
+                aria-label="Previous certification">
+
+          <svg viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="1.8"
+               stroke-linecap="round"
+               stroke-linejoin="round">
+
+            <path d="M15 6l-6 6 6 6"/>
+
+          </svg>
+
+        </button>
+
+        <div class="carousel-dots"
+             role="tablist"
+             aria-label="Certification slides">
+        </div>
+
+        <button class="carousel-btn"
+                type="button"
+                data-dir="next"
+                aria-label="Next certification">
+
+          <svg viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="1.8"
+               stroke-linecap="round"
+               stroke-linejoin="round">
+
+            <path d="M9 6l6 6-6 6"/>
+
+          </svg>
+
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</section>
 
   <!-- Experience -->
   <section class="section section--tight" id="experience">

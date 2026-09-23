@@ -104,75 +104,310 @@
     if (!root) return;
 
     var track = root.querySelector('.carousel-track');
-    var slides = Array.prototype.slice.call(root.querySelectorAll('.cert-card'));
     var dotsWrap = root.querySelector('.carousel-dots');
     var prevBtn = root.querySelector('[data-dir="prev"]');
     var nextBtn = root.querySelector('[data-dir="next"]');
-    if (!track || slides.length < 2) return;
+
+    if (!track) return;
+
+
+    /* =========================================================
+       CERTIFICATE FILES
+       =========================================================
+
+       Put your certificate images inside:
+
+       assets/certificates/
+
+       Then enter ONLY the filenames below.
+    ========================================================= */
+
+    var certificateFiles = [
+        "AWSCLF02.png",
+        "BugBounty.png",
+        "DS.png",
+        "ML.png"
+    ];
+
+
+    /* =========================================================
+       CREATE CERTIFICATE CARDS
+    ========================================================= */
+
+    certificateFiles.forEach(function (file, i) {
+
+        var card = document.createElement('div');
+        card.className = 'cert-card';
+
+        var img = document.createElement('img');
+
+        img.src = 'assets/certificates/' + file;
+        img.alt = 'Certification ' + (i + 1);
+
+        card.appendChild(img);
+        track.appendChild(card);
+
+    });
+
+
+    /* =========================================================
+       GET CERTIFICATE SLIDES
+    ========================================================= */
+
+    var slides = Array.prototype.slice.call(
+        root.querySelectorAll('.cert-card')
+    );
+
+    if (slides.length < 2) return;
+
 
     var index = 0;
     var timer = null;
     var AUTO_MS = 4800;
 
+
+    /* =========================================================
+       CREATE CAROUSEL DOTS
+    ========================================================= */
+
     slides.forEach(function (_, i) {
-      var dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'carousel-dot';
-      dot.setAttribute('aria-label', 'Go to certification ' + (i + 1) + ' of ' + slides.length);
-      dot.addEventListener('click', function () { goTo(i); restart(); });
-      dotsWrap.appendChild(dot);
+
+        var dot = document.createElement('button');
+
+        dot.type = 'button';
+        dot.className = 'carousel-dot';
+
+        dot.setAttribute(
+            'aria-label',
+            'Go to certification ' +
+            (i + 1) +
+            ' of ' +
+            slides.length
+        );
+
+        dot.addEventListener('click', function () {
+            goTo(i);
+            restart();
+        });
+
+        dotsWrap.appendChild(dot);
+
     });
-    var dots = Array.prototype.slice.call(dotsWrap.children);
+
+
+    var dots = Array.prototype.slice.call(
+        dotsWrap.children
+    );
+
+
+    /* =========================================================
+       RENDER
+    ========================================================= */
 
     function render() {
-      track.style.transform = 'translateX(-' + (index * 100) + '%)';
-      dots.forEach(function (d, i) {
-        d.setAttribute('aria-current', i === index ? 'true' : 'false');
-      });
+
+        track.style.transform =
+            'translateX(-' +
+            (index * 100) +
+            '%)';
+
+        dots.forEach(function (d, i) {
+
+            d.setAttribute(
+                'aria-current',
+                i === index ? 'true' : 'false'
+            );
+
+        });
+
     }
+
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
 
     function goTo(i) {
-      index = (i + slides.length) % slides.length;
-      render();
+
+        index =
+            (i + slides.length) %
+            slides.length;
+
+        render();
+
     }
-    function next() { goTo(index + 1); }
-    function prev() { goTo(index - 1); }
+
+
+    function next() {
+        goTo(index + 1);
+    }
+
+
+    function prev() {
+        goTo(index - 1);
+    }
+
+
+    /* =========================================================
+       AUTO PLAY
+    ========================================================= */
 
     function start() {
-      if (prefersReducedMotion) return;
-      stop();
-      timer = window.setInterval(next, AUTO_MS);
+
+        if (prefersReducedMotion) return;
+
+        stop();
+
+        timer = window.setInterval(
+            next,
+            AUTO_MS
+        );
+
     }
+
+
     function stop() {
-      if (timer) { window.clearInterval(timer); timer = null; }
+
+        if (timer) {
+
+            window.clearInterval(timer);
+            timer = null;
+
+        }
+
     }
-    function restart() { stop(); start(); }
 
-    if (nextBtn) nextBtn.addEventListener('click', function () { next(); restart(); });
-    if (prevBtn) prevBtn.addEventListener('click', function () { prev(); restart(); });
 
-    root.addEventListener('mouseenter', stop);
-    root.addEventListener('mouseleave', start);
-    root.addEventListener('focusin', stop);
-    root.addEventListener('focusout', start);
+    function restart() {
 
-    // Touch swipe
+        stop();
+        start();
+
+    }
+
+
+    /* =========================================================
+       NEXT / PREVIOUS BUTTONS
+    ========================================================= */
+
+    if (nextBtn) {
+
+        nextBtn.addEventListener(
+            'click',
+            function () {
+
+                next();
+                restart();
+
+            }
+        );
+
+    }
+
+
+    if (prevBtn) {
+
+        prevBtn.addEventListener(
+            'click',
+            function () {
+
+                prev();
+                restart();
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       PAUSE ON MOUSE HOVER
+    ========================================================= */
+
+    root.addEventListener(
+        'mouseenter',
+        stop
+    );
+
+    root.addEventListener(
+        'mouseleave',
+        start
+    );
+
+
+    /* =========================================================
+       PAUSE WHEN FOCUSED
+    ========================================================= */
+
+    root.addEventListener(
+        'focusin',
+        stop
+    );
+
+    root.addEventListener(
+        'focusout',
+        start
+    );
+
+
+    /* =========================================================
+       TOUCH SWIPE
+    ========================================================= */
+
     var touchStartX = null;
-    track.addEventListener('touchstart', function (e) {
-      touchStartX = e.changedTouches[0].clientX;
-      stop();
-    }, { passive: true });
-    track.addEventListener('touchend', function (e) {
-      if (touchStartX === null) return;
-      var delta = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(delta) > 40) { delta < 0 ? next() : prev(); }
-      touchStartX = null;
-      restart();
-    }, { passive: true });
+
+
+    track.addEventListener(
+        'touchstart',
+        function (e) {
+
+            touchStartX =
+                e.changedTouches[0].clientX;
+
+            stop();
+
+        },
+        { passive: true }
+    );
+
+
+    track.addEventListener(
+        'touchend',
+        function (e) {
+
+            if (touchStartX === null) return;
+
+            var delta =
+                e.changedTouches[0].clientX -
+                touchStartX;
+
+
+            if (Math.abs(delta) > 40) {
+
+                delta < 0
+                    ? next()
+                    : prev();
+
+            }
+
+
+            touchStartX = null;
+
+            restart();
+
+        },
+        { passive: true }
+    );
+
+
+    /* =========================================================
+       INITIALIZE
+    ========================================================= */
 
     render();
     start();
-  })();
+
+})();
 
   /* -----------------------------------------------------------------------
      Blog accordion
